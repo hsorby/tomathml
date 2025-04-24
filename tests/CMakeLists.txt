@@ -36,7 +36,7 @@ foreach(test_name ${TEST_NAMES})
 
   gtest_discover_tests(${test_name}
     PROPERTIES
-      ENVIRONMENT "${TEST_ENV_PATH}"
+      ENVIRONMENT ${TEST_ENV_PATH}
   )
 
 endforeach()
