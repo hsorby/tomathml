@@ -66,7 +66,7 @@ function(generate_nanobind_sources SCRIPT INPUTS HASH_FILE)
     file(RENAME "${HASH_TEMP}" "${HASH_FILE}")
   else()
     file(REMOVE "${HASH_TEMP}")
-    message(STATUS "No changes — skipping bindings source generation.")
+    message(STATUS "No changes detected — skipping bindings source generation.")
   endif()
 endfunction()
 
