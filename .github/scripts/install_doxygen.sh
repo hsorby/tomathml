@@ -5,7 +5,7 @@ echo "Installing Doxygen..."
 
 OS="$(uname)"
 if [[ "$OS" == "Linux" ]]; then
-    sudo yum install -y doxygen || sudo apt-get update && sudo apt-get install -y doxygen
+    yum install -y doxygen || apt-get update && apt-get install -y doxygen
 elif [[ "$OS" == "Darwin" ]]; then
     brew install doxygen
 else
