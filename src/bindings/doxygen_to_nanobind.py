@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 
 from collections import defaultdict
 from difflib import SequenceMatcher
+from pathlib import PureWindowsPath
 
 
 # Common standard library header to nanobind type mapping
@@ -267,7 +268,7 @@ def write_binding_files(symbol_map, output_dir):
     for header, items in symbol_map.items():
         module_name = safe_name(get_module_name(header))
         filename = os.path.join(output_dir, f"{module_name}_bindings.cpp")
-        written_files.append(filename)
+        written_files.append(PureWindowsPath(filename).as_posix())
 
         mapped_includes = [item for item in items if item[0] == 'includes']
 
