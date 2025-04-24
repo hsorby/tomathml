@@ -336,8 +336,11 @@ def main():
     print("-------------------")
     print(args.xml)
     print(args.out)
+
     for f in os.listdir(args.xml):
         print(f)
+    print('cat')
+    os.system(f'cat {os.path.dirname(args.xml)}/Doxyfile')
     index = get_root_element(get_index_file(args.xml))
     compound_map = create_compound_map(index)
     symbols = extract_symbols_by_header(args.xml, compound_map)
