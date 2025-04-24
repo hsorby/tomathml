@@ -328,6 +328,11 @@ def get_index_file(xml_dir):
 
 def main():
     args = parse_arguments()
+    print("-------------------")
+    print(args.xml)
+    print(args.out)
+    for f in os.listdir(args.xml):
+        print(f)
     index = get_root_element(get_index_file(args.xml))
     compound_map = create_compound_map(index)
     symbols = extract_symbols_by_header(args.xml, compound_map)
