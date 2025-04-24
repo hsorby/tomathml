@@ -7,7 +7,7 @@ name = "tomathml"
 dynamic = ["version"]
 description = "A small library to convert a text description of math to content MathML."
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 authors = [
     { name = "Hugh Sorby", email = "h.sorby@auckland.ac.nz" },
 ]
