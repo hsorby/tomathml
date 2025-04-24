@@ -1,6 +1,8 @@
 
 #include "stringhelp.h"
 
+#include <algorithm>
+
 namespace utils {
 
 std::string toUpper(const std::string &input)

@@ -479,35 +479,6 @@ bool Parser::isTokenType(utils::XmlNodePtr &pDomNode,
 }
 
 
-// bool Parser::andToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "and"
-
-//     return tokenType(pDomNode, "'and'",
-//                      Scanner::Token::And);
-// }
-
-
-
-// bool Parser::asToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "as"
-
-//     return tokenType(pDomNode, "'as'",
-//                      Scanner::Token::As);
-// }
-
-
-
-// bool Parser::betweenToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "between"
-
-//     return tokenType(pDomNode, "'between'",
-//                      Scanner::Token::Between);
-// }
-
-
 
 bool Parser::caseToken(utils::XmlNodePtr &pDomNode)
 {
@@ -559,26 +530,6 @@ bool Parser::commaToken(utils::XmlNodePtr &pDomNode)
 
 
 
-// bool Parser::compToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "comp"
-
-//     return tokenType(pDomNode, "'comp'",
-//                      Scanner::Token::Comp);
-// }
-
-
-
-// bool Parser::defToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "def"
-
-//     return tokenType(pDomNode, "'def'",
-//                      Scanner::Token::Def);
-// }
-
-
-
 bool Parser::dimensionlessToken(utils::XmlNodePtr &pDomNode)
 {
     // Expect "dimensionless"
@@ -586,26 +537,6 @@ bool Parser::dimensionlessToken(utils::XmlNodePtr &pDomNode)
     return tokenType(pDomNode, "'dimensionless'",
                      Scanner::Token::Dimensionless);
 }
-
-
-
-// bool Parser::endcompToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "endcomp"
-
-//     return tokenType(pDomNode, "'endcomp'",
-//                      Scanner::Token::EndComp);
-// }
-
-
-
-// bool Parser::enddefToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "enddef"
-
-//     return tokenType(pDomNode, "'enddef'",
-//                      Scanner::Token::EndDef);
-// }
 
 
 
@@ -626,16 +557,6 @@ bool Parser::eqToken(utils::XmlNodePtr &pDomNode)
     return tokenType(pDomNode, "'='",
                      Scanner::Token::Eq);
 }
-
-
-
-// bool Parser::forToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "for"
-
-//     return tokenType(pDomNode, "'for'",
-//                      Scanner::Token::For);
-// }
 
 
 
@@ -681,16 +602,6 @@ bool Parser::cmetaIdToken(utils::XmlNodePtr &pDomNode)
     return tokenType(pDomNode, "A cmeta:id",
                      Tokens);
 }
-
-
-
-// bool Parser::modelToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "model"
-
-//     return tokenType(pDomNode, "'model'",
-//                      Scanner::Token::Model);
-// }
 
 
 
@@ -811,26 +722,6 @@ bool Parser::strictlyPositiveIntegerNumberToken(utils::XmlNodePtr &pDomNode)
 
 
 
-// bool Parser::unitToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "unit"
-
-//     return tokenType(pDomNode, "'unit'",
-//                      Scanner::Token::Unit);
-// }
-
-
-
-// bool Parser::usingToken(utils::XmlNodePtr &pDomNode)
-// {
-//     // Expect "using"
-
-//     return tokenType(pDomNode, "'using'",
-//                      Scanner::Token::Using);
-// }
-
-
-
 std::string Parser::processCommentString(const std::string &pComment)
 {
     // From https://w3.org/TR/xml/#sec-comments, we can see that XML comments
@@ -921,131 +812,6 @@ void Parser::parseComments(utils::XmlNodePtr &pDomNode)
     }
 }
 
-
-
-// bool Parser::parseCmetaId(utils::XmlNodePtr &pDomElement)
-// {
-//     // Check whether a cmeta:id is given by checking whether the token is "{"
-
-//     std::string cmetaId;
-
-//     if (!isTokenType(pDomElement,
-//                      Scanner::Token::OpeningCurlyBracket)) {
-//         return true;
-//     }
-
-//     // Expect a cmeta:id
-
-//     mScanner.getNextToken();
-
-//     if (!cmetaIdToken(pDomElement)) {
-//         return false;
-//     }
-
-//     cmetaId = mScanner.string();
-
-//     // Expect "}"
-
-//     mScanner.getNextToken();
-
-//     if (!closingCurlyBracketToken(pDomElement)) {
-//         return false;
-//     }
-
-//     // Fetch the next token
-
-//     mScanner.getNextToken();
-
-//     // Set the cmeta:id of the current DOM element, which in the case of a
-//     // MathML element must be done via the MathML id attribute (so we need to
-//     // check whether the current DOM element is within the MathML namespace)
-
-//     bool withinMathmlNamespace = false;
-//     utils::XmlNodePtr parentNode = pDomElement.parentNode();
-
-//     while (parentNode) {
-//         utils::XmlNodePtr xmlnsAttributeNode = parentNode->attributes().namedItem("xmlns");
-
-//         if (   !xmlnsAttributeNode.isNull()
-//             &&  (xmlnsAttributeNode.nodeValue() == CellMLSupport::MathmlNamespace)) {
-//             withinMathmlNamespace = true;
-
-//             break;
-//         }
-
-//         parentNode = parentNode.parentNode();
-//     }
-
-//     if (withinMathmlNamespace) {
-//         pDomElement->addAttribute("id", cmetaId);
-//     } else {
-//         mNamespaces.insert("cmeta", CellMLSupport::CmetaIdNamespace);
-
-//         pDomElement->addAttribute("cmeta:id", cmetaId);
-//     }
-
-//     return true;
-// }
-
-
-
-// bool Parser::parseModelDefinition(utils::XmlNodePtr &pDomNode)
-// {
-//     // Loop while we have "def" and leave if we get "enddef"
-
-//     static const Scanner::Tokens Tokens = { Scanner::Token::Def,
-//                                                           Scanner::Token::EndDef };
-
-//     while (tokenType(pDomNode, "'def' or 'enddef'"),
-//                      Tokens)) {
-//         if (mScanner.token() == Scanner::Token::Def) {
-//             // Expect a model definition
-
-//             static const Scanner::Tokens SubTokens = { Scanner::Token::Import,
-//                                                                      Scanner::Token::Unit,
-//                                                                      Scanner::Token::Comp,
-//                                                                      Scanner::Token::Group,
-//                                                                      Scanner::Token::Map };
-
-//             mScanner.getNextToken();
-
-//             if (tokenType(pDomNode, "'import', 'unit', 'comp', 'group' or 'map'"),
-//                           SubTokens)) {
-//                 if (mScanner.token() == Scanner::Token::Import) {
-//                     if (!parseImportDefinition(pDomNode)) {
-//                         return false;
-//                     }
-//                 } else if (mScanner.token() == Scanner::Token::Unit) {
-//                     if (!parseUnitsDefinition(pDomNode)) {
-//                         return false;
-//                     }
-//                 } else if (mScanner.token() == Scanner::Token::Comp) {
-//                     if (!parseComponentDefinition(pDomNode)) {
-//                         return false;
-//                     }
-//                 } else if (mScanner.token() == Scanner::Token::Group) {
-//                     if (!parseGroupDefinition(pDomNode)) {
-//                         return false;
-//                     }
-//                 } else {
-//                     if (!parseMapDefinition(pDomNode)) {
-//                         return false;
-//                     }
-//                 }
-//             } else {
-//                 return false;
-//             }
-
-//             // Fetch the next token
-
-//             mScanner.getNextToken();
-//         } else {
-//             return true;
-//         }
-//     }
-
-//     return false;
-// }
 
 bool Parser::parseMathematicalExpression(utils::XmlNodePtr &pDomNode,
                                                        bool pFullParsing)
@@ -1150,373 +916,6 @@ bool Parser::parseMathematicalExpression(utils::XmlNodePtr &pDomNode,
 
     return true;
 }
-
-
-
-// bool Parser::parseGroupDefinition(utils::XmlNodePtr &pDomNode)
-// {
-//     // Create our group element
-
-//     utils::XmlNodePtr groupElement = newDomElement(pDomNode, "group");
-
-//     // Try to parse for a cmeta:id
-
-//     mScanner.getNextToken();
-
-//     if (!parseCmetaId(groupElement)) {
-//         return false;
-//     }
-
-//     // Expect "as"
-
-//     if (!asToken(groupElement)) {
-//         return false;
-//     }
-
-//     // Expect some group information, so loop while we have "containment" or
-//     // "encapsulation"
-
-//     static const Scanner::Tokens Tokens = { Scanner::Token::Containment,
-//                                                           Scanner::Token::Encapsulation };
-
-//     mScanner.getNextToken();
-
-//     while (tokenType(groupElement, "'containment' or 'encapsulation'",
-//                      Tokens)) {
-//         if (mScanner.token() == Scanner::Token::Containment) {
-//             // Create our relationship reference and make it a containment
-
-//             utils::XmlNodePtr relationshipRefElement = newDomElement(groupElement, "relationship_ref");
-
-//             relationshipRefElement->addAttribute("relationship", "containment");
-
-//             // Try to parse for a cmeta:id
-
-//             mScanner.getNextToken();
-
-//             if (!parseCmetaId(relationshipRefElement)) {
-//                 return false;
-//             }
-
-//             // Expect an identifier, "and" or "for"
-
-//             static const Scanner::Tokens SubTokens = { Scanner::Token::IdentifierOrCmetaId,
-//                                                                      Scanner::Token::And,
-//                                                                      Scanner::Token::For };
-
-//             if (!tokenType(groupElement, "An identifier, 'and' or 'for'",
-//                            SubTokens)) {
-//                 return false;
-//             }
-
-//             // Check what we got exactly
-
-//             if (mScanner.token() == Scanner::Token::IdentifierOrCmetaId) {
-//                 // Set the name of the containment
-
-//                 relationshipRefElement->addAttribute("name", mScanner.string());
-
-//                 // Fetch the next token
-
-//                 mScanner.getNextToken();
-//             }
-//         } else {
-//             // Scanner::TokenType::EncapsulationToken
-
-//             // Create our relationship reference and make it an encapsulation
-
-//             utils::XmlNodePtr relationshipRefElement = newDomElement(groupElement, "relationship_ref");
-
-//             relationshipRefElement->addAttribute("relationship", "encapsulation");
-
-//             // Try to parse for a cmeta:id
-
-//             mScanner.getNextToken();
-
-//             if (!parseCmetaId(relationshipRefElement)) {
-//                 return false;
-//             }
-//         }
-
-//         // Expect "and" or "for"
-
-//         static const Scanner::Tokens SubTokens = { Scanner::Token::And,
-//                                                                  Scanner::Token::For };
-
-//         if (tokenType(groupElement, "'and' or 'for'",
-//                       SubTokens)) {
-//             if (mScanner.token() == Scanner::Token::For) {
-//                 break;
-//             }
-
-//             mScanner.getNextToken();
-//         } else {
-//             return false;
-//         }
-//     }
-
-//     // Loop while we have "comp" or leave if we get "enddef"
-
-//     static const Scanner::Tokens NextTokens = { Scanner::Token::Comp,
-//                                                               Scanner::Token::EndDef };
-
-//     mScanner.getNextToken();
-
-//     while (tokenType(groupElement, "'comp' or 'enddef'",
-//                      NextTokens)) {
-//         if (mScanner.token() == Scanner::Token::Comp) {
-//             // Recursively parse our component reference
-
-//             if (!parseComponentRefDefinition(groupElement)) {
-//                 return false;
-//             }
-//         } else {
-//             // Expect ";"
-
-//             mScanner.getNextToken();
-
-//             return semiColonToken(groupElement);
-//         }
-//     }
-
-//     return false;
-// }
-
-
-
-// bool Parser::parseComponentRefDefinition(utils::XmlNodePtr &pDomNode)
-// {
-//     // Create our component reference element
-
-//     utils::XmlNodePtr componentRefElement = newDomElement(pDomNode, "component_ref");
-
-//     // Try to parse for a cmeta:id
-
-//     mScanner.getNextToken();
-
-//     if (!parseCmetaId(componentRefElement)) {
-//         return false;
-//     }
-
-//     // Expect an identifier
-
-//     if (!identifierToken(componentRefElement)) {
-//         return false;
-//     }
-
-//     // Set the name of the component reference
-
-//     componentRefElement->addAttribute("component", mScanner.string());
-
-//     // Expect "incl" or ";"
-
-//     static const Scanner::Tokens Tokens = { Scanner::Token::Incl,
-//                                                           Scanner::Token::SemiColon };
-
-//     mScanner.getNextToken();
-
-//     if (!tokenType(componentRefElement, "'incl' or ';'",
-//                    Tokens)) {
-//         return false;
-//     }
-
-//     // Check what we got exactly
-
-//     if (mScanner.token() == Scanner::Token::Incl) {
-//         // Expect at least one "comp", then loop while we have "comp" or leave
-//         // if we get "enddcomp"
-
-//         static const Scanner::Tokens SubTokens = { Scanner::Token::Comp,
-//                                                                  Scanner::Token::EndComp };
-
-//         bool firstTime = true;
-
-//         mScanner.getNextToken();
-
-//         do {
-//             if (firstTime) {
-//                 firstTime = false;
-
-//                 if (!compToken(componentRefElement)) {
-//                     return false;
-//                 }
-//             }
-
-//             if (mScanner.token() == Scanner::Token::Comp) {
-//                 // Recursively parse a component reference
-
-//                 if (!parseComponentRefDefinition(componentRefElement)) {
-//                     return false;
-//                 }
-//             } else {
-//                 break;
-//             }
-//         } while (tokenType(componentRefElement, "'comp' or 'endcomp'",
-//                            SubTokens));
-
-//         // Expect ";"
-
-//         mScanner.getNextToken();
-
-//         if (!semiColonToken(componentRefElement)) {
-//             return false;
-//         }
-//     }
-
-//     // Fetch the next token
-
-//     mScanner.getNextToken();
-
-//     return true;
-// }
-
-
-
-// bool Parser::parseMapDefinition(utils::XmlNodePtr &pDomNode)
-// {
-//     // Create our connection element
-
-//     utils::XmlNodePtr connectionElement = newDomElement(pDomNode, "connection");
-
-//     // Try to parse for a cmeta:id
-
-//     mScanner.getNextToken();
-
-//     if (!parseCmetaId(connectionElement)) {
-//         return false;
-//     }
-
-//     // Expect "between"
-
-//     if (!betweenToken(connectionElement)) {
-//         return false;
-//     }
-
-//     // Create our map components element
-
-//     utils::XmlNodePtr mapComponentsElement = newDomElement(connectionElement, "map_components");
-
-//     // Try to parse for a cmeta:id
-
-//     mScanner.getNextToken();
-
-//     if (!parseCmetaId(mapComponentsElement)) {
-//         return false;
-//     }
-
-//     // Expect an identifier
-
-//     if (!identifierToken(connectionElement)) {
-//         return false;
-//     }
-
-//     // Set our first component
-
-//     mapComponentsElement->addAttribute("component_1", mScanner.string());
-
-//     // Expect "and"
-
-//     mScanner.getNextToken();
-
-//     if (!andToken(connectionElement)) {
-//         return false;
-//     }
-
-//     // Expect an identifier
-
-//     mScanner.getNextToken();
-
-//     if (!identifierToken(connectionElement)) {
-//         return false;
-//     }
-
-//     // Set our second component
-
-//     mapComponentsElement->addAttribute("component_2", mScanner.string());
-
-//     // Expect "for"
-
-//     mScanner.getNextToken();
-
-//     if (!forToken(connectionElement)) {
-//         return false;
-//     }
-
-//     // Expect a mapping, so loop while we have "vars" or leave if we get
-//     // "enddef"
-
-//     static const Scanner::Tokens Tokens = { Scanner::Token::Vars,
-//                                                           Scanner::Token::EndDef };
-
-//     mScanner.getNextToken();
-
-//     while (tokenType(connectionElement, "'vars' or 'enddef'",
-//                      Tokens)) {
-//         if (mScanner.token() == Scanner::Token::Vars) {
-//             // Create our map variables element
-
-//             utils::XmlNodePtr mapVariablesElement = newDomElement(connectionElement, "map_variables");
-
-//             // Try to parse for a cmeta:id
-
-//             mScanner.getNextToken();
-
-//             if (!parseCmetaId(mapVariablesElement)) {
-//                 return false;
-//             }
-
-//             // Expect an identifier
-
-//             if (!identifierToken(connectionElement)) {
-//                 return false;
-//             }
-
-//             // Set the name of the first variable
-
-//             mapVariablesElement->addAttribute("variable_1", mScanner.string());
-
-//             // Expect "and"
-
-//             mScanner.getNextToken();
-
-//             if (!andToken(connectionElement)) {
-//                 return false;
-//             }
-
-//             // Expect an identifier
-
-//             mScanner.getNextToken();
-
-//             if (!identifierToken(connectionElement)) {
-//                 return false;
-//             }
-
-//             // Set the name of the second variable
-
-//             mapVariablesElement->addAttribute("variable_2", mScanner.string());
-
-//             // Expect ";"
-
-//             mScanner.getNextToken();
-
-//             if (!semiColonToken(connectionElement)) {
-//                 return false;
-//             }
-
-//             // Fetch the next token
-
-//             mScanner.getNextToken();
-//         } else {
-//             // Expect ";"
-
-//             mScanner.getNextToken();
-
-//             return semiColonToken(connectionElement);
-//         }
-//     }
-
-//     return false;
-// }
 
 
 
@@ -2481,34 +1880,15 @@ utils::XmlNodePtr Parser::parsePiecewiseMathematicalExpression(utils::XmlNodePtr
 }
 
 
+bool Parser::cellmlMode() const
+{
+    return mCellmlMode;
+}
 
-// void Parser::moveTrailingComments(utils::XmlNodePtr &pFromDomNode,
-//                                                 utils::XmlNodePtr &pToDomNode)
-// {
-//     // Move trailing comments, if any, from pFromDomNode to pToDomNode
 
-//     if (!pFromDomNode.hasChildNodes()) {
-//         return;
-//     }
-
-//     int i = pFromDomNode.childNodes().count()-1;
-
-//     while (pFromDomNode.childNodes().item(i).isComment()) {
-//         --i;
-//     }
-
-//     for (++i; i != pFromDomNode.childNodes().count();) {
-//         pToDomNode.addChild(pFromDomNode.childNodes().item(i));
-//     }
-// }
-    bool Parser::cellmlMode() const
-    {
-        return mCellmlMode;
-    }
-
-    void Parser::setCellmlMode(bool pState)
-    {
-        mCellmlMode = pState;
-    }
+void Parser::setCellmlMode(bool pState)
+{
+    mCellmlMode = pState;
+}
 
 }

@@ -21,10 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: true
 
     - uses: pypa/cibuildwheel@v2.22
+      env:
+        CIBW_BEFORE_BUILD_LINUX: bash .github/scripts/install_doxygen.sh
+        CIBW_BEFORE_BUILD_MACOS: bash .github/scripts/install_doxygen.sh
+        CIBW_BEFORE_BUILD_WINDOWS: powershell .github/scripts/install_doxygen.ps1
+
 
     - name: Verify clean directory
       run: git diff --exit-code
