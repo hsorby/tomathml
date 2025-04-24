@@ -15,7 +15,7 @@ target_include_directories(testhelper INTERFACE
 )
 
 if(MSVC)
-  set(TEST_ENV_PATH "PATH=$<JOIN:$<LIST:$<TARGET_FILE_DIR:libtomathml>;$ENV{PATH}>,;>")
+  set(TEST_ENV_PATH "PATH=$<JOIN:$<TARGET_FILE_DIR:libtomathml>;$ENV{PATH},;>")
 else()
   set(TEST_ENV_PATH "")
 endif()
