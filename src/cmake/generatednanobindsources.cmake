@@ -42,7 +42,7 @@ function(generate_nanobind_sources SCRIPT INPUTS HASH_FILE)
     execute_process(
       COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUTPUT_DIR}/Doxyfile
       WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-      OUTPUT_QUIET
+      # OUTPUT_QUIET
       RESULT_VARIABLE RESULT
     )
 
@@ -55,7 +55,7 @@ function(generate_nanobind_sources SCRIPT INPUTS HASH_FILE)
       COMMAND ${Python_EXECUTABLE} "${SCRIPT}"
               --xml ${DOXYGEN_XML_DIR}
               --out ${GENERATED_DIR}
-      OUTPUT_QUIET
+      # OUTPUT_QUIET
       RESULT_VARIABLE RESULT
     )
 
