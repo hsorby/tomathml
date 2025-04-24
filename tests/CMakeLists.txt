@@ -15,7 +15,7 @@ target_include_directories(testhelper INTERFACE
 )
 
 if(MSVC)
-  set(TEST_ENV_PATH "PATH=$<TARGET_FILE_DIR:libtomathml>\;$ENV{PATH}")
+  set(TEST_ENV_PATH "PATH=$<SHELL_PATH:$<TARGET_FILE_DIR:gtest>>$<SEMICOLON>$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>$<SEMICOLON>$ENV{PATH}")
 else()
   set(TEST_ENV_PATH "")
 endif()
