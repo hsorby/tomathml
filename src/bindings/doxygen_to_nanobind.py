@@ -343,6 +343,8 @@ def main():
     os.system(f'cat {os.path.dirname(args.xml)}/Doxyfile')
     print('cat index file:')
     os.system(f'cat {get_index_file(args.xml)}')
+    print('namespacetomathml.xml')
+    os.system(f'cat {args.xml}/namespacetomathml.xml')
     index = get_root_element(get_index_file(args.xml))
     compound_map = create_compound_map(index)
     symbols = extract_symbols_by_header(args.xml, compound_map)
