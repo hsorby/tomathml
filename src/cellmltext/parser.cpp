@@ -2,8 +2,6 @@
 #include "cellmltext/parser.h"
 #include "utils/stringhelp.h"
 
-#include <format>
-
 namespace CellMLText {
 
 static const auto MathmlNamespace = "http://www.w3.org/1998/Math/MathML";
@@ -217,7 +215,7 @@ void Parser::addUnexpectedTokenErrorMessage(const std::string &pExpectedString,
     mMessages.push_back(ParserMessage(ParserMessage::Type::Error,
                                              mScanner.line(),
                                              mScanner.column(),
-                                             std::format("{} is expected, but {} was found instead.", pExpectedString, pFoundString)));
+                                             pExpectedString + " is expected, but " + pFoundString + " was found instead."));
 }
 
 
@@ -442,7 +440,7 @@ bool Parser::tokenType(utils::XmlNodePtr &pDomNode,
     std::string foundString = mScanner.string();
 
     if (mScanner.token() != Scanner::Token::Eof) {
-        foundString = std::format("'{}'", utils::specials(foundString));
+        foundString = "'" + utils::specials(foundString) = "'";
     }
 
     addUnexpectedTokenErrorMessage(pExpectedString, foundString);
@@ -712,7 +710,7 @@ bool Parser::strictlyPositiveIntegerNumberToken(utils::XmlNodePtr &pDomNode)
             foundString = "-"+foundString;
         }
 
-        addUnexpectedTokenErrorMessage(ExpectedString, std::format("'{}'", foundString));
+        addUnexpectedTokenErrorMessage(ExpectedString, "'" + foundString + "'");
 
         return false;
     }
@@ -1724,7 +1722,7 @@ utils::XmlNodePtr Parser::parseNormalMathematicalExpression9(utils::XmlNodePtr &
         std::string foundString = mScanner.string();
 
         if (mScanner.token() != Scanner::Token::Eof) {
-            foundString = std::format("'{}'", foundString);
+            foundString = "'" + foundString + "'";
         }
 
         addUnexpectedTokenErrorMessage("An identifier, 'ode', a number, a mathematical function, a mathematical constant or '('", foundString);

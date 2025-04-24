@@ -7,7 +7,7 @@ OS="$(uname)"
 if [[ "$OS" == "Linux" ]]; then
     yum install -y doxygen || apt-get update && apt-get install -y doxygen
 elif [[ "$OS" == "Darwin" ]]; then
-    brew install doxygen
+    brew install doxygen --formula
 else
     echo "Manual Doxygen install needed on Windows"
 fi
