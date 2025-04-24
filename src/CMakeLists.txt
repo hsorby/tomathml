@@ -47,5 +47,15 @@ else()
     target_compile_options(libtomathml PRIVATE -Wall -Wextra -pedantic)
 endif()
 
+if(SKBUILD)
+  install(TARGETS libtomathml
+    COMPONENT wheel
+    RUNTIME DESTINATION .
+    LIBRARY DESTINATION .
+    NAMELINK_SKIP
+    EXCLUDE_FROM_ALL
+  )
+endif()
+
 set(TOMATHML_LIB_SRCS ${SRCS} PARENT_SCOPE)
 set(TOMATHML_LIB_HDRS ${HDRS} PARENT_SCOPE)

@@ -1,6 +1,9 @@
 
 find_package(Doxygen)
-find_package(Python 3.8 COMPONENTS Interpreter Development.Module)
+find_package(Python 3.8
+  REQUIRED COMPONENTS Interpreter Development.Module
+  OPTIONAL_COMPONENTS Development.SABIModule
+)
 
 if (Python_FOUND)
   # Detect the installed nanobind package and import it into CMake
