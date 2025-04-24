@@ -4,18 +4,15 @@ set(TEST_NAMES
   test_odes
 )
 
-set(SRCS
-  utils.cpp
-)
-
+# Not actually used because the testhelper library is an interface library.
 set(HDRS
   strings.h
-  utils.h
 )
 
-add_library(testhelper STATIC ${SRCS} ${HDRS})
-target_link_libraries(testhelper PUBLIC tomathml)
-# target_include_directories(testhelper PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(testhelper INTERFACE)
+target_include_directories(testhelper INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
 
 foreach(test_name ${TEST_NAMES})
   add_executable(
@@ -26,7 +23,7 @@ foreach(test_name ${TEST_NAMES})
   target_link_libraries(
     ${test_name}
     PUBLIC
-    tomathml
+    libtomathml
     testhelper
     GTest::gtest_main
   )

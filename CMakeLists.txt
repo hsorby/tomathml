@@ -7,6 +7,8 @@ endif()
 # Project name and version
 project(ToMathML VERSION 1.0 LANGUAGES CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/cmake")
+
 include(FetchContent)
 
 # Set C++ standard
@@ -25,10 +27,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
+include(environmentchecks)
+
 add_subdirectory(src)
 
 if(BUILD_TESTS)
   enable_testing()
   include(GoogleTest)
   add_subdirectory(tests)
+endif()
+
+if(BINDINGS_AVAILABLE)
+  add_subdirectory(src/bindings)
 endif()
