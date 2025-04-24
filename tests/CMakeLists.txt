@@ -14,6 +14,12 @@ target_include_directories(testhelper INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+if(MSVC)
+  set(TEST_ENV_PATH "PATH=$<JOIN:$<LIST:$<TARGET_FILE_DIR:libtomathml>;$ENV{PATH}>,;>")
+else()
+  set(TEST_ENV_PATH "")
+endif()
+
 foreach(test_name ${TEST_NAMES})
   add_executable(
     ${test_name}
@@ -28,6 +34,9 @@ foreach(test_name ${TEST_NAMES})
     GTest::gtest_main
   )
 
-  gtest_discover_tests(${test_name})
+  gtest_discover_tests(${test_name}
+    PROPERTIES
+      ENVIRONMENT "${TEST_ENV_PATH}"
+  )
 
 endforeach()
