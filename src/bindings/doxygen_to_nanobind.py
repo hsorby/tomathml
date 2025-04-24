@@ -316,6 +316,7 @@ def create_compound_map(index):
         if len(compound) > 1:
             ref_id = compound.attrib["refid"]
             kind = compound.attrib["kind"]
+            print(kind, ref_id)
             if kind in ["class", "namespace", "file"]:
                 compound_map[ref_id] = kind
 
