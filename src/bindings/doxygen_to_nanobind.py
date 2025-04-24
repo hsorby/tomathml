@@ -301,11 +301,15 @@ def write_binding_files(symbol_map, output_dir):
 
 
 def get_refid_for(name, index):
+    print("get refid for:", name, index)
     for compound in index.findall("compound"):
         compound_name = compound.find("name")
+        print(compound_name, get_text(compound_name))
         if get_text(compound_name) == name:
+            print('returning:', compound.attrib["refid"])
             return compound.attrib["refid"]
-        
+
+    print('returning None.')
     return None
 
 
