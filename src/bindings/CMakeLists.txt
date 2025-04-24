@@ -11,6 +11,6 @@ file(STRINGS ${GENERATED_FILES_LIST} GENERATED_SOURCES)
 foreach(BINDINGS_SOURCE IN LISTS GENERATED_SOURCES)
   get_filename_component(BINDINGS_FILENAME "${BINDINGS_SOURCE}" NAME)
   string(REGEX REPLACE "_bindings\\.cpp$" "" BINDINGS_MODULE_NAME "${BINDINGS_FILENAME}")  # Remove suffix.
-  nanobind_add_module(${BINDINGS_MODULE_NAME} ${GENERATED_SOURCES})
+  nanobind_add_module(${BINDINGS_MODULE_NAME} STABLE_ABI ${GENERATED_SOURCES})
   target_link_libraries(${BINDINGS_MODULE_NAME} PUBLIC libtomathml)
 endforeach()

@@ -18,7 +18,7 @@ set(SRCS
 add_library(libtomathml
   ${SRCS} ${HDRS} 
 )
-set_target_properties(libtomathml PROPERTIES OUTPUT_NAME "tomathml")
+set_target_properties(libtomathml PROPERTIES OUTPUT_NAME "tomathml" POSITION_INDEPENDENT_CODE ON)
 
 # Add include directories
 target_include_directories(libtomathml PUBLIC
