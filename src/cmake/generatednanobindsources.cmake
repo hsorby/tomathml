@@ -31,7 +31,8 @@ function(generate_nanobind_sources SCRIPT INPUTS HASH_FILE)
     message(STATUS "Changes detected — regenerating binding source files: ${SCRIPT}")
 
     # Configure Doxygen config file from template
-    set(DOXYGEN_INPUT_SRCS "${CMAKE_SOURCE_DIR}/src/tomathml.h")
+    set(DOXYGEN_SRC_ROOT "${CMAKE_SOURCE_DIR}/src")
+    set(DOXYGEN_INPUT_SRCS "${DOXYGEN_SRC_ROOT}/tomathml.h")
 
     set(DOXYGEN_OUTPUT_DIR "${CMAKE_BINARY_DIR}/docs/doxygen")
     set(DOXYGEN_XML_DIR "${DOXYGEN_OUTPUT_DIR}/xml")
