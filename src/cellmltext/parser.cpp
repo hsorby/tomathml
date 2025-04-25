@@ -1,5 +1,8 @@
 
 #include "cellmltext/parser.h"
+
+#include <algorithm>
+
 #include "utils/stringhelp.h"
 
 namespace CellMLText {
