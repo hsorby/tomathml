@@ -52,6 +52,16 @@ def get_refid(elem):
     return elem.attrib['refid']
 
 
+def extract_qualified_name(element):
+    qualified_name = element.findtext("qualifiedname")
+    if not qualified_name:
+        member_type = element.findtext("type")
+        member_definition = element.findtext("definition")
+        qualified_name = member_definition.replace(member_type, "").strip()
+
+    return qualified_name
+
+
 def extract_class_details(root, from_kind=None, xml_dir=None):
     methods = []
     enums = []
@@ -79,7 +89,7 @@ def extract_class_details(root, from_kind=None, xml_dir=None):
 
         if kind == 'function':
             name = member.find('name').text
-            qualified_name = member.findtext("qualifiedname") or name
+            qualified_name = extract_qualified_name(member) or name
             # brief = extract_brief_description(member)
             # print(f'Function: {name}')
             args, doc = extract_docs(member)
@@ -90,7 +100,7 @@ def extract_class_details(root, from_kind=None, xml_dir=None):
             values = []
             for enum_value in member.findall('enumvalue'):
                 ev_name = enum_value.find('name').text
-                ev_qualified_name = member.findtext("qualifiedname") or ev_name
+                ev_qualified_name = extract_qualified_name(member) or ev_name
                 ev_brief = extract_brief_description(enum_value)
                 values.append((ev_name, f"{ev_qualified_name}::{ev_name}", ev_brief))
             enums.append((kind, enum_name, values))
@@ -216,7 +226,7 @@ def extract_info_from(root, from_kind, xml_dir):
             visibility = member.attrib.get("prot")
             if visibility == "public":
                 name = member.findtext("name")
-                qname = member.findtext("qualifiedname") or name  # use full qualified name
+                qname = extract_qualified_name(member) or name  # use full qualified name
                 if kind == "function":
                     args, doc = extract_docs(member)
                     symbols[header].append((kind, name, qname, args, doc))
