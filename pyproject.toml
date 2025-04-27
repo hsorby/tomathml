@@ -58,3 +58,11 @@ build-verbosity = 1
 # Needed for full C++17 support on macOS
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
+
+[tool.cibuildwheel]
+# Normal options, etc.
+manylinux-x86_64-image = "manylinux_2_34"
+
+[[tool.cibuildwheel.overrides]]
+select = "cp3{9,10}-*"
+manylinux-x86_64-image = "manylinux_2_28"
