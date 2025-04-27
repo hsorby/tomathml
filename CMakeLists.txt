@@ -52,12 +52,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-# # Then create the option with that default
-# option(BUILD_TESTS "Build the tests" ${BUILD_TESTS_DEFAULT})
-
-# option(BUILD_TESTS "Build unit tests" ON)
-# option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
-
 set(BUILD_GMOCK OFF)
 
 FetchContent_Declare(

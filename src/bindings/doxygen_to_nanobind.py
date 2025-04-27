@@ -311,15 +311,11 @@ def write_binding_files(symbol_map, output_dir):
 
 
 def get_refid_for(name, index):
-    print("get refid for:", name, index)
     for compound in index.findall("compound"):
         compound_name = compound.find("name")
-        print(compound_name, get_text(compound_name))
         if get_text(compound_name) == name:
-            print('returning:', compound.attrib["refid"])
             return compound.attrib["refid"]
 
-    print('returning None.')
     return None
 
 
@@ -330,7 +326,6 @@ def create_compound_map(index):
         if len(compound) > 1:
             ref_id = compound.attrib["refid"]
             kind = compound.attrib["kind"]
-            print(kind, ref_id)
             if kind in ["class", "namespace", "file"]:
                 compound_map[ref_id] = kind
 
@@ -343,18 +338,6 @@ def get_index_file(xml_dir):
 
 def main():
     args = parse_arguments()
-    print("-------------------")
-    print(args.xml)
-    print(args.out)
-
-    for f in os.listdir(args.xml):
-        print(f)
-    print('cat')
-    os.system(f'cat {os.path.dirname(args.xml)}/Doxyfile')
-    print('cat index file:')
-    os.system(f'cat {get_index_file(args.xml)}')
-    print('namespacetomathml.xml')
-    os.system(f'cat {args.xml}/namespacetomathml.xml')
     index = get_root_element(get_index_file(args.xml))
     compound_map = create_compound_map(index)
     symbols = extract_symbols_by_header(args.xml, compound_map)
