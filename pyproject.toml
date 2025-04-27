@@ -57,6 +57,9 @@ build-verbosity = 1
 # Normal options, etc.
 manylinux-x86_64-image = "manylinux_2_34"
 
+# Skip linux 32-bit builds.
+skip = "*-manylinux_i686 *-musllinux_i686"
+
 # Needed for full C++17 support on macOS
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
