@@ -73,16 +73,16 @@ BUILD_TESTS = "OFF"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-manylinux*"
-before-build = "yum install -y doxygen"
+before-all = "yum install -y doxygen"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
-before-build = "apk add doxygen"
+before-all = "apk add doxygen"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx*"
-before-build = "brew install doxygen --formula"
+before-all = "brew install doxygen --formula"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-win32*"
-before-build = "choco install doxygen.install --no-progress"
+before-all = "choco install doxygen.install --no-progress"
