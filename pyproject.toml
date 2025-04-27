@@ -60,6 +60,12 @@ build-verbosity = 1
 # Skip linux 32-bit builds.
 skip = "*-manylinux_i686 *-musllinux_i686"
 
+[tool.cibuildwheel.macos]
+before-all = "brew install doxygen --formula"
+
+[tool.cibuildwheel.windows]
+before-all = "choco install doxygen.install --no-progress"
+
 # Needed for full C++17 support on macOS
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
@@ -78,11 +84,3 @@ before-all = "yum install -y doxygen"
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
 before-all = "apk add doxygen"
-
-[[tool.cibuildwheel.overrides]]
-select = "*-macosx*"
-before-all = "brew install doxygen --formula"
-
-[[tool.cibuildwheel.overrides]]
-select = "*-win32*"
-before-all = "choco install doxygen.install --no-progress"
