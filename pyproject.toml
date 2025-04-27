@@ -67,9 +67,6 @@ MACOSX_DEPLOYMENT_TARGET = "13.3"
 [tool.cibuildwheel.linux.environment]
 BUILD_TESTS = "OFF"
 
-[tool.cibuildwheel.linux]
-before-all = "yum install mylib"
-
 [[tool.cibuildwheel.overrides]]
 select = "cp3{9,10}-*"
 manylinux-x86_64-image = "manylinux_2_28"
