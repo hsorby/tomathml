@@ -54,14 +54,12 @@ build-verbosity = 1
 # Optional: run pytest to ensure that the package was correctly built
 # test-command = "pytest {project}/tests"
 # test-requires = "pytest"
+# Normal options, etc.
+manylinux-x86_64-image = "manylinux_2_34"
 
 # Needed for full C++17 support on macOS
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
-
-[tool.cibuildwheel]
-# Normal options, etc.
-manylinux-x86_64-image = "manylinux_2_34"
 
 [[tool.cibuildwheel.overrides]]
 select = "cp3{9,10}-*"
