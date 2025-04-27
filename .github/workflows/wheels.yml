@@ -23,13 +23,6 @@ jobs:
     - uses: actions/checkout@v4
 
     - uses: pypa/cibuildwheel@v2.22
-      env:
-        CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
-        CIBW_ENVIRONMENT_LINUX: BUILD_TESTS=OFF
-        CIBW_BEFORE_BUILD_LINUX: bash .github/scripts/install_doxygen.sh
-        CIBW_BEFORE_BUILD_MACOS: bash .github/scripts/install_doxygen.sh
-        CIBW_BEFORE_BUILD_WINDOWS: powershell .github/scripts/install_doxygen.ps1
-
 
     - name: Verify clean directory
       run: git diff --exit-code

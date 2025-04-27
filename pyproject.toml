@@ -64,6 +64,28 @@ skip = "*-manylinux_i686 *-musllinux_i686"
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
 
+[tool.cibuildwheel.linux.environment]
+BUILD_TESTS = "OFF"
+
+[tool.cibuildwheel.linux]
+before-all = "yum install mylib"
+
 [[tool.cibuildwheel.overrides]]
 select = "cp3{9,10}-*"
 manylinux-x86_64-image = "manylinux_2_28"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-manylinux*"
+before-build = "yum install -y doxygen"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-musllinux*"
+before-build = "apk add doxygen"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx*"
+before-build = "brew install doxygen --formula"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-win32*"
+before-build = "choco install doxygen.install --no-progress"
