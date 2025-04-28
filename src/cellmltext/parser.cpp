@@ -371,7 +371,7 @@ utils::XmlNodePtr Parser::newMathematicalFunctionElement(Scanner::Token pTokenTy
         }
     } else if (   (pTokenType >= Scanner::Token::FirstTwoOrMoreArgumentMathematicalFunction)
                && (pTokenType <= Scanner::Token::LastTwoOrMoreArgumentMathematicalFunction)) {
-        for (int i = 1, iMax = pArgumentElements.size(); i < iMax; ++i) {
+        for (size_t i = 1, iMax = pArgumentElements.size(); i < iMax; ++i) {
             mathematicalFunctionElement->addChild(pArgumentElements[i]);
         }
     } else if (   (pTokenType != Scanner::Token::Log)
