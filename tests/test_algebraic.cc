@@ -3,7 +3,7 @@
 #include "tomathml.h"
 
 // Test utilities headers.
-#include "strings.h"
+#include "expectedresultstrings.h"
 
 TEST(SimpleEqn, AeqB)
 {

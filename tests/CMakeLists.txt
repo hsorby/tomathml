@@ -6,7 +6,7 @@ set(TEST_NAMES
 
 # Not actually used because the testhelper library is an interface library.
 set(HDRS
-  strings.h
+  expectedresultstrings.h
 )
 
 add_library(testhelper INTERFACE)
