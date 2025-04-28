@@ -33,9 +33,9 @@ foreach(test_name ${TEST_NAMES})
   )
 
   if (MSVC)
-  set_target_properties(${test_name} PROPERTIES
-    TEST_LAUNCHER ${MSVC_TEST_LAUNCHER_EXTENSION}
-  )
+    set_target_properties(${test_name} PROPERTIES
+      TEST_LAUNCHER ${MSVC_TEST_LAUNCHER_EXTENSION}
+    )
   endif()
 
   target_link_libraries(
@@ -47,8 +47,6 @@ foreach(test_name ${TEST_NAMES})
   )
 
   gtest_discover_tests(${test_name}
-    ${MSVC_TEST_EXECUTOR_EXTENSION}
-    ${MSVC_SK_BUILD_OPTION}
   )
 
 endforeach()
