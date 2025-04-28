@@ -5,8 +5,7 @@ echo "Installing Doxygen..."
 
 OS="$(uname)"
 if [[ "$OS" == "Linux" ]]; then
-    # yum install -y doxygen <-- For older manylinux containers.
-    yum install -y doxygen # <-- For newer manylinux containers.
+    apt install -y doxygen
 elif [[ "$OS" == "Darwin" ]]; then
     brew install doxygen --formula
 else
