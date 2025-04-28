@@ -15,8 +15,8 @@ target_include_directories(testhelper INTERFACE
 )
 
 if(MSVC)
-  set(MSVC_TEST_EXECUTOR_EXTENSION PROPERTIES TEST_EXECUTOR "\"${CMAKE_COMMAND}\" -E env --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:gtest>> --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>")
-  set(MSVC_TEST_LAUNCHER_EXTENSION "\"${CMAKE_COMMAND}\" -E env --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:gtest>> --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>")
+  set(MSVC_TEST_EXECUTOR_EXTENSION PROPERTIES TEST_EXECUTOR "\"${CMAKE_COMMAND}\" -E env --modify PATH=path_list_prepend:$<TARGET_FILE_DIR:gtest> --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>")
+  set(MSVC_TEST_LAUNCHER_EXTENSION "\"${CMAKE_COMMAND}\" -E env --modify PATH=path_list_prepend:$<TARGET_FILE_DIR:gtest> --modify PATH=path_list_prepend:$<TARGET_FILE_DIR:libtomathml>")
   if(SKBUILD)
     set(MSVC_SK_BUILD_OPTION DISCOVERY_MODE PRE_TEST)
   endif()
@@ -25,6 +25,7 @@ endif()
 
 message(STATUS "==================")
 message(STATUS "MSVC_TEST_EXECUTOR_EXTENSION: ${MSVC_TEST_EXECUTOR_EXTENSION}")
+message(STATUS "MSVC_TEST_LAUNCHER_EXTENSION: ${MSVC_TEST_LAUNCHER_EXTENSION}")
 
 foreach(test_name ${TEST_NAMES})
   add_executable(
