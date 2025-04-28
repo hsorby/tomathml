@@ -70,13 +70,6 @@ before-all = "choco install doxygen.install --no-progress"
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "13.3"
 
-[tool.cibuildwheel.linux.environment]
-BUILD_TESTS = "OFF"
-
-# [[tool.cibuildwheel.overrides]]
-# select = "cp3{9,10}-*"
-# manylinux-x86_64-image = "manylinux_2_28"
-
 [[tool.cibuildwheel.overrides]]
 select = "*-manylinux*"
 before-all = "yum install -y doxygen"
