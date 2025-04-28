@@ -47,7 +47,6 @@ foreach(test_name ${TEST_NAMES})
   )
 
   gtest_discover_tests(${test_name}
-    ${MSVC_TEST_LAUNCHER_EXTENSION}
     ${MSVC_TEST_EXECUTOR_EXTENSION}
     ${MSVC_SK_BUILD_OPTION}
   )
