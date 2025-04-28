@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests:
-    name: Run tests on ${{ matrix.os.nm }}
+    name: Run tests on ${{ matrix.os.nm }} - ${{ matrix.py }}
     runs-on: ${{ matrix.os.nm }}
     strategy:
       fail-fast: false
