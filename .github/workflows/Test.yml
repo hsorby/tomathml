@@ -1,0 +1,48 @@
+name: Run Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+     - main
+
+jobs:
+  run_tests:
+    name: Run tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+            gn: Unix Makefiles
+          - macos-13
+            gn: Xcode
+          - macos-latest
+            gn: Unix Makefiles
+          - windows-latest
+            gn: Visual Studio 17 2022
+        py: ['3.13', '3.9']
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+          python-version: ${{ matrix.py }}
+    - name: Install nanobind
+      run: |
+        pip install nanobind
+    - name: Install Doxygen - ${{ matrix.os }}
+      if: runner.os != 'Windows'
+      shell: bash
+      run: |
+        bash .github/scripts/install_doxygen.sh
+    - name: Install Doxygen - ${{ matrix.os }}
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        .github/scripts/install_doxygen.ps1
+    - uses: purpleKarrot/cmake-action@v1
+      with:
+        cmake-generator: ${{ matrix.os.gn }}
