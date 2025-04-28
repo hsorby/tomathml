@@ -15,9 +15,7 @@ target_include_directories(testhelper INTERFACE
 )
 
 if(MSVC)
-  set(TEST_ENV_PATH "PATH=$<SHELL_PATH:$<TARGET_FILE_DIR:gtest>>$<SEMICOLON>$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>$<SEMICOLON>$ENV{PATH}")
-else()
-  set(TEST_ENV_PATH "")
+  set(MSVC_TEST_EXECUTOR_EXTENSION PROPERTIES TEST_EXECUTOR ${CMAKE_COMMAND} -E env --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:gtest>> --modify PATH=path_list_prepend:$<SHELL_PATH:$<TARGET_FILE_DIR:libtomathml>>)
 endif()
 
 foreach(test_name ${TEST_NAMES})
@@ -35,9 +33,7 @@ foreach(test_name ${TEST_NAMES})
   )
 
   gtest_discover_tests(${test_name}
-    PROPERTIES
-      ENVIRONMENT ${TEST_ENV_PATH}
-      DISCOVERY_ENVIRONMENT  ${TEST_ENV_PATH}
+    ${MSVC_TEST_EXECUTOR_EXTENSION}
   )
 
 endforeach()
