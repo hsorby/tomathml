@@ -43,6 +43,17 @@ jobs:
       shell: pwsh
       run: |
         .github/scripts/install_doxygen.ps1
-    - uses: purpleKarrot/cmake-action@master
-      with:
-        cmake-generator: ${{ matrix.os.gn }}
+    - name: Configure
+      run: |
+        cmake -S . -B build
+    - name: Build
+      run: |
+        cd build
+        cmake --build . --config Release
+    - name: Test
+      run: |
+        cd build
+        ctest
+    # - uses: purpleKarrot/cmake-action@master
+    #   with:
+    #     cmake-generator: ${{ matrix.os.gn }}
