@@ -9,7 +9,7 @@ on:
 
 jobs:
   run_tests:
-    name: Run tests on ${{ matrix.os.nm }} - ${{ matrix.py }}
+    name: Configure, build, and test on ${{ matrix.os.nm }} with python ${{ matrix.py }}
     runs-on: ${{ matrix.os.nm }}
     strategy:
       fail-fast: false
@@ -49,7 +49,10 @@ jobs:
     - name: Build
       run: |
         cd build
-        cmake --build . --config Release
+        cmake --build . --config Release -G "${{ matrix.os.gn }}"
+    - name: Setup tmate session
+      if: ${{ failure() }}
+      uses: mxschmitt/action-tmate@v3
     - name: Test
       run: |
         cd build
