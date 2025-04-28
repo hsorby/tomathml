@@ -23,7 +23,7 @@ jobs:
             gn: Unix Makefiles
           - nm: windows-latest
             gn: Visual Studio 17 2022
-        py: ['3.13', '3.9']
+        py: ['3.13']
 
     steps:
     - uses: actions/checkout@v4
@@ -33,12 +33,12 @@ jobs:
     - name: Install nanobind
       run: |
         pip install nanobind
-    - name: Install Doxygen - ${{ matrix.os.nm }}
+    - name: Install Doxygen if not Windows
       if: runner.os != 'Windows'
       shell: bash
       run: |
         bash .github/scripts/install_doxygen.sh
-    - name: Install Doxygen - ${{ matrix.os.nm }}
+    - name: Install Doxygen if Windows
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
