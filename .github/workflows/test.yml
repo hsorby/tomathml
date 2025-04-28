@@ -45,11 +45,11 @@ jobs:
         .github/scripts/install_doxygen.ps1
     - name: Configure
       run: |
-        cmake -S . -B build
+        cmake -S . -B build -G "${{ matrix.os.gn }}"
     - name: Build
       run: |
         cd build
-        cmake --build . --config Release -G "${{ matrix.os.gn }}"
+        cmake --build . --config Release
     - name: Setup tmate session
       if: ${{ failure() }}
       uses: mxschmitt/action-tmate@v3
