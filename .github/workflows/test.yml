@@ -9,19 +9,19 @@ on:
 
 jobs:
   run_tests:
-    name: Run tests on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Run tests on ${{ matrix.os.nm }}
+    runs-on: ${{ matrix.os.nm }}
     strategy:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
+          - nm: ubuntu-latest
             gn: Unix Makefiles
-          - macos-13
+          - nm: macos-13
             gn: Xcode
-          - macos-latest
+          - nm: macos-latest
             gn: Unix Makefiles
-          - windows-latest
+          - nm: windows-latest
             gn: Visual Studio 17 2022
         py: ['3.13', '3.9']
 
@@ -33,12 +33,12 @@ jobs:
     - name: Install nanobind
       run: |
         pip install nanobind
-    - name: Install Doxygen - ${{ matrix.os }}
+    - name: Install Doxygen - ${{ matrix.os.nm }}
       if: runner.os != 'Windows'
       shell: bash
       run: |
         bash .github/scripts/install_doxygen.sh
-    - name: Install Doxygen - ${{ matrix.os }}
+    - name: Install Doxygen - ${{ matrix.os.nm }}
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
