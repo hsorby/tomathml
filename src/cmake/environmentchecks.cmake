@@ -1,5 +1,5 @@
 
-find_package(Doxygen)
+find_package(Doxygen 1.8.14)
 find_package(Python 3.8
   REQUIRED COMPONENTS Interpreter Development.Module
   OPTIONAL_COMPONENTS Development.SABIModule
