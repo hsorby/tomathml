@@ -15,12 +15,12 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          # - nm: ubuntu-latest
-            # gn: Unix Makefiles
-          # - nm: macos-13
-            # gn: Xcode
-          # - nm: macos-latest
-            # gn: Unix Makefiles
+          - nm: ubuntu-latest
+            gn: Unix Makefiles
+          - nm: macos-13
+            gn: Xcode
+          - nm: macos-latest
+            gn: Unix Makefiles
           - nm: windows-latest
             gn: Visual Studio 17 2022
         py: ['3.13']
@@ -50,13 +50,7 @@ jobs:
       run: |
         cd build
         cmake --build . --config Release
-    - name: Setup tmate session
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Test
       run: |
         cd build
         ctest
-    # - uses: purpleKarrot/cmake-action@master
-    #   with:
-    #     cmake-generator: ${{ matrix.os.gn }}
