@@ -3,6 +3,9 @@ To MathML
 =========
 
 A simple C++ library to convert mathematical expressions written in text format into content MathML.
+There is a Python wrapper for the library that can be installed with pip::
+
+  pip install tomathml
 
 This library expoects mathematical expressions of the form::
 
