@@ -7,6 +7,11 @@ There is a Python wrapper for the library that can be installed with pip::
 
   pip install tomathml
 
+The library only has one function, and that funtion is *process*.
+The function takes one parameter, a string, and returns a string.
+The function also has an optional parameter to switch on and off the CellML generation mode.
+The CellML generation mode is on by default.
+
 This library expoects mathematical expressions of the form::
 
   a = b + 2;
@@ -16,6 +21,21 @@ or for an ODE::
   ode(x, t) = 5;
 
 The semi-colon (;) is used to mark the end of an expression.
+
+By default, the library outputs content MathML suitable for `CellML <cellml.org>`_.
+This adds a requirement that all constants described in an equation must have some units defined.
+The units should be the correct units appropriate for the equation.
+To properly generate content MathML from the examples above in CellML mode (the default), the units of the constants must be set.
+This is done like so:
+
+  a = b + 2{kg};
+
+simimlarly for the ODE::
+
+  ode(x, t) = 5{m_per_s}
+
+CellML mode can be turned off be setting the second parameter to the *process* function to false.
+When the CellML mode is not active, the dimensions for constants do not need to be set.
 Mulitple expressions can be added to a single text block::
 
   a = 6;b = e -3;
@@ -154,3 +174,64 @@ If you are in CellML mode and you forget to assign a dimension to a constant the
 
 This error messages tells us the on line 1, column 10 the '{' character was expected but ')' was found instead.
 It expecets the '{' character because it starts the definition of units.
+
+Building
+--------
+
+The following actions are required to build the library and Python bindings.
+
+The main library is a C++ library, and to build this library, you will need CMake with a version of at least 3.25 and a compiler that supports the C++20 standard.
+To build only the C++ library, follow these commands::
+
+  git clone https://github.com/hsorby/tomathml
+  cmake -S tomathml -B build-tomathml
+  cd build-tomathml
+  cmake --build .
+
+If you are building with a tool that supports multiple configurations, the last line must be changed to::
+
+  cmake --build . --config Release
+
+The text *Release* in this command can be replaced with the name of the configuration desired.
+
+If you wish to build the Python bindings, you will need, in addition to the above requirements, the `Doxygen <https://www.doxygen.nl/download.html>`_ application and a version of Python (as a virtual environment) with *nanobind* installed.
+CMake must be able to find the *Doxygen* application and *nanobind*.
+If CMake cannot find these tools, the bindings will not be able to be built.
+To install *Doxygen*, follow the platform-specific instructions that match your operating system.
+To make *nanobind* available, create a Python virtual environment, install *nanobind* and activate the virtual environment.
+For a Linux or macOS operating system, this can be done from the terminal with the following commands::
+
+  python -m venv venv_nanobind
+  source venv_nanobind/bin/activate
+  pip install nanobind
+
+For the Windows operating system, this can be done from the *cmd* application with the following::
+
+  python -m venv venv_nanobind
+  ./venv_nanobind/Scripts/Activate
+  pip install nanobind
+
+When the library is configured and *Doxygen* and *nanobind* are found, the bindings will be built at the same time as the library.
+Following the instructions on building above, will create the binding library for Python.
+
+Installing
+----------
+
+The C++ library cannot be installed at this time.
+However, the Python bindings can be.
+To install the Python bindings, perform the following commands::
+
+  cd build-tomathml
+  pip install .
+
+Ensure an active Python virtual environment that matches the Python version the library was built for is currently available.
+With newer Python versions, 3.12 and beyond, the stable API means you can install the bindings from older Python environments into newer Python environments.
+
+Testing
+-------
+
+The C++ library has some tests that can be run with *ctest*.
+To run the tests after building the library, perform the following commands::
+
+  cd build-tomathml
+  ctest
