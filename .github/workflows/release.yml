@@ -1,0 +1,25 @@
+name: Release library
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  release-library:
+    if: github.repository == 'hsorby/tomathml'
+    runs-on: ubuntu-24.04
+    name: Release package
+    permissions:
+      contents: write
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+      - name: Create Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${{ inputs.release-heading }}" \
+              --generate-notes
