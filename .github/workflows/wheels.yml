@@ -8,6 +8,9 @@ on:
   release:
     types:
       - published
+  workflow_run:
+    workflows: ['Release library']
+    types: [completed]
 
 jobs:
   build_wheels:
@@ -33,11 +36,13 @@ jobs:
         path: wheelhouse/*.whl
         name: dist-${{ matrix.os }}
 
-  upload_all:
-    name: Upload if release
+  deploy_all:
+    name: Deploy if release
     needs: [build_wheels]
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: >
+      github.event.workflow_run.conclusion == 'success' ||
+      (github.event_name == 'release' && github.event.action == 'published')
 
     steps:
     - uses: actions/setup-python@v5
