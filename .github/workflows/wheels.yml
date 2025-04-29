@@ -38,6 +38,8 @@ jobs:
 
   deploy_all:
     name: Deploy if release
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     needs: [build_wheels]
     runs-on: ubuntu-latest
     if: >

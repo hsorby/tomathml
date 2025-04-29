@@ -12,7 +12,6 @@ jobs:
     name: Release package
     permissions:
       contents: write
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - name: Create Release
         shell: bash
