@@ -6,6 +6,9 @@ on:
 
 jobs:
   print:
+    name: Some name
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Triggered by release: ${{ github.event.release.tag_name }}"
+      - name: Echo release info
+        run: |
+          echo "Triggered by release: ${{ github.event.release.tag_name }}"
