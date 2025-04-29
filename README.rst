@@ -2,17 +2,17 @@
 To MathML
 =========
 
-A simple C++ library to convert mathematical expressions written in text format into content MathML.
+ToMathML is a simple C++ library that converts mathematical expressions written in text format into content MathML.
 There is a Python wrapper for the library that can be installed with pip::
 
   pip install tomathml
 
-The library only has one function, and that funtion is *process*.
+The library only has one function, and that function is *process*.
 The function takes one parameter, a string, and returns a string.
-The function also has an optional parameter to switch on and off the CellML generation mode.
+The function also has an optional parameter to switch the CellML generation mode on and off.
 The CellML generation mode is on by default.
 
-This library expoects mathematical expressions of the form::
+This library expects mathematical expressions of the form::
 
   a = b + 2;
 
@@ -23,10 +23,10 @@ or for an ODE::
 The semi-colon (;) is used to mark the end of an expression.
 
 By default, the library outputs content MathML suitable for `CellML <cellml.org>`_.
-This adds a requirement that all constants described in an equation must have some units defined.
+The CellML mode adds a requirement that all constants described in an equation must have some units defined.
 The units should be the correct units appropriate for the equation.
-To properly generate content MathML from the examples above in CellML mode (the default), the units of the constants must be set.
-This is done like so:
+To correctly generate content MathML from the examples above in CellML mode (the default), the units of the constants must be set.
+The following examples show how units are set on constants::
 
   a = b + 2{kg};
 
@@ -34,8 +34,8 @@ simimlarly for the ODE::
 
   ode(x, t) = 5{m_per_s}
 
-CellML mode can be turned off be setting the second parameter to the *process* function to false.
-When the CellML mode is not active, the dimensions for constants do not need to be set.
+CellML mode can be turned off by setting the second parameter to the *process* function to false.
+When the CellML mode is inactive, the constants' dimensions do not need to be set.
 Mulitple expressions can be added to a single text block::
 
   a = 6;b = e -3;
@@ -166,14 +166,14 @@ Some examples of using the 'tomathml' library with Python to create context Math
   >>>
 
 
-If you are in CellML mode and you forget to assign a dimension to a constant then you can expect an error message like the following::
+When in CellML mode and a constant in a mathematical equation does not have a dimension assigned, the *process* function will return an error message like the following::
 
   >>> print(tomathml.process("ode(x,t,2)=m*x;"))
   Messages from parser (1)
   [1, 10]: '{' is expected, but ')' was found instead.
 
-This error messages tells us the on line 1, column 10 the '{' character was expected but ')' was found instead.
-It expecets the '{' character because it starts the definition of units.
+This error message tells us that on line 1, column 10, the '{' character was expected, but ')' was found instead.
+It expects the '{' character because that is the marker for defining units.
 
 Building
 --------
